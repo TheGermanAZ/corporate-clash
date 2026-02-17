@@ -6,9 +6,6 @@ export type GamePhase = "playing" | "gameOver";
 
 // --- Grid ---
 
-export const MAP_ROWS = 4;
-export const MAP_COLS = 4;
-
 export interface GridPos {
   row: number;
   col: number;
@@ -125,6 +122,7 @@ export interface CorporateWorld {
   grid: Tile[][];
   selectedTile: GridPos | null;
   uiMode: UIMode;
+  hoveredTile?: GridPos;
 }
 
 // --- Constants ---
@@ -133,11 +131,11 @@ export const STARTING_FUNDS = 500_000;
 
 // --- Factory ---
 
-export function createWorld(): CorporateWorld {
+export function createWorld(gridSize: number): CorporateWorld {
   const grid: Tile[][] = [];
-  for (let row = 0; row < MAP_ROWS; row++) {
+  for (let row = 0; row < gridSize; row++) {
     const rowTiles: Tile[] = [];
-    for (let col = 0; col < MAP_COLS; col++) {
+    for (let col = 0; col < gridSize; col++) {
       rowTiles.push({ row, col, building: null });
     }
     grid.push(rowTiles);
@@ -157,6 +155,8 @@ export function createWorld(): CorporateWorld {
 export interface Manager {
   update?(world: CorporateWorld, dt: number): void;
   render?(world: CorporateWorld, renderer: Renderer): void;
+  onRightClick?(world: CorporateWorld): void;
+  onLeftClick?(world: CorporateWorld): void;
   onKeyDown?(world: CorporateWorld, key: string): void;
   onKeyUp?(world: CorporateWorld, key: string): void;
   destroy?(): void;

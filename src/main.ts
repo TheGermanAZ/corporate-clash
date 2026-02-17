@@ -1,7 +1,7 @@
 import { Application } from "pixi.js";
 import { Game } from "./engine/Game.js";
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./engine/types.js";
-import { SnakeScene } from "./scenes/snake/SnakeScene.js";
+import { CorporateClashScene } from "./scenes/corporate-clash/CorporateClashScene.js";
 
 async function bootstrap() {
   const app = new Application();
@@ -16,7 +16,7 @@ async function bootstrap() {
   container.appendChild(app.canvas);
 
   const game = new Game(app);
-  game.loadScene(new SnakeScene());
+  game.loadScene(new CorporateClashScene());
 }
 
 bootstrap().catch(console.error);

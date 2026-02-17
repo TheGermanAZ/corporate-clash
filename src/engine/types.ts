@@ -1,7 +1,7 @@
 // --- Game Constants ---
 
-export const GRID_SIZE = 20;
-export const CELL_SIZE = 30;
+export const GRID_SIZE = 4;
+export const CELL_SIZE = 150;
 export const CANVAS_WIDTH = GRID_SIZE * CELL_SIZE; // 600px
 export const CANVAS_HEIGHT = GRID_SIZE * CELL_SIZE; // 600px
 export const TICK_RATE_MS = 150; // ~6.67 ticks/sec
@@ -39,6 +39,8 @@ export interface Scene {
   init(context: GameContext): void;
   update(dt: number): void;
   render(renderer: Renderer): void;
+  onRightClick(): void;
+  onLeftClick(): void;
   onKeyDown(key: string): void;
   onKeyUp(key: string): void;
   destroy(): void;

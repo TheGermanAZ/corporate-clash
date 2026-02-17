@@ -1,0 +1,50 @@
+import type { Scene, GameContext, Renderer } from "../../engine/types.js";
+import type { CorporateWorld, Manager } from "./types.js";
+import { createWorld } from "./types.js";
+import { InputManager } from "./InputManager.js";
+import { MapRenderManager } from "./MapRenderManager.js";
+
+export class CorporateClashScene implements Scene {
+  private world!: CorporateWorld;
+  private managers: Manager[] = [];
+
+  init(ctx: GameContext): void {
+    this.world = createWorld(ctx.gridSize);
+    this.managers = [
+      new InputManager(),
+      new MapRenderManager(),
+      // new GameplayManager(),
+      // new RenderManager(),
+      // new UIManager(),
+    ];
+  }
+
+  update(dt: number): void {
+    for (const m of this.managers) m.update?.(this.world, dt);
+  }
+
+  render(renderer: Renderer): void {
+    renderer.clear();
+    for (const m of this.managers) m.render?.(this.world, renderer);
+  }
+
+  onRightClick(): void {
+    for (const m of this.managers) m.onRightClick?.(this.world);
+  }
+
+  onLeftClick(): void {
+    for (const m of this.managers) m.onLeftClick?.(this.world);
+  }
+
+  onKeyDown(key: string): void {
+    for (const m of this.managers) m.onKeyDown?.(this.world, key);
+  }
+
+  onKeyUp(key: string): void {
+    for (const m of this.managers) m.onKeyUp?.(this.world, key);
+  }
+
+  destroy(): void {
+    for (const m of this.managers) m.destroy?.();
+  }
+}
