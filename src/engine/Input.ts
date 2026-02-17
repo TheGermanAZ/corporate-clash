@@ -32,6 +32,8 @@ export class Input {
       this.scene?.onKeyUp(e.code);
     };
 
+    
+
     window.addEventListener("keydown", this.onKeyDown);
     window.addEventListener("keyup", this.onKeyUp);
   }
